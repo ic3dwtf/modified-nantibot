@@ -1,11 +1,15 @@
 from discord.ext import commands
+import configparser
 import discord
 import asyncio
 import os
 
-token = ""
-whitelist = []
-preset = ""
+cfg = configparser.ConfigParser()
+cfg.read("config.ini")
+
+token = cfg["main"]["token"]
+whitelist = [int(x) for x in cfg["main"]["whitelist"].split(",")]
+preset = cfg["main"]["preset"]
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!", intents=intents)
